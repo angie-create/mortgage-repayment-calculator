@@ -1,0 +1,89 @@
+.mortgageForm {
+  background-color: var(--color-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-lg);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+  margin: 0;
+}
+
+.clearButton {
+  color: var(--color-slate-500);
+  text-decoration: underline;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clearButton:hover {
+  color: var(--color-slate-700);
+}
+
+.clearButton:focus-visible {
+  outline: 2px solid var(--color-lime);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.termRateGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.submitSection {
+  margin-top: var(--spacing-lg);
+}
+
+.calculateIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .mortgageForm {
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .termRateGroup {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .submitSection {
+    margin-top: var(--spacing-md);
+  }
+}

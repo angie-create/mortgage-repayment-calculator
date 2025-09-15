@@ -1,0 +1,122 @@
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-700);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-slate-300);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option:hover {
+  border-color: var(--color-lime);
+  background-color: var(--color-slate-100);
+}
+
+.option.checked {
+  border-color: var(--color-lime);
+  background-color: hsl(61, 70%, 52%, 0.1);
+}
+
+.option.error {
+  border-color: var(--color-red);
+}
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radioCustom {
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--color-slate-300);
+  border-radius: 50%;
+  margin-right: var(--spacing-sm);
+  background-color: var(--color-white);
+  transition: all 0.2s ease;
+}
+
+.radioCustom::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-lime);
+  transition: transform 0.2s ease;
+}
+
+.option.checked .radioCustom {
+  border-color: var(--color-lime);
+}
+
+.option.checked .radioCustom::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.option:focus-within .radioCustom {
+  outline: 2px solid var(--color-lime);
+  outline-offset: 2px;
+}
+
+.optionLabel {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+  cursor: pointer;
+  user-select: none;
+}
+
+.errorMessage {
+  color: var(--color-red);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  margin-top: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.errorMessage::before {
+  content: "⚠";
+  font-size: 0.75rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .radioGroup {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .option {
+    padding: var(--spacing-sm);
+  }
+}
