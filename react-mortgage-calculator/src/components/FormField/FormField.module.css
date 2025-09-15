@@ -8,8 +8,9 @@
 .label {
   font-weight: var(--font-weight-medium);
   color: var(--color-slate-700);
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   margin-bottom: var(--spacing-xs);
+  line-height: var(--line-height-normal);
 }
 
 .inputWrapper {
@@ -19,17 +20,22 @@
   border: 1px solid var(--color-slate-300);
   border-radius: var(--border-radius-sm);
   background-color: var(--color-white);
-  transition: border-color 0.2s ease;
+  transition: all var(--transition-base);
+  min-height: 3rem;
 }
 
-.inputWrapper:hover {
+.inputWrapper:hover:not(.error) {
   border-color: var(--color-slate-500);
+  box-shadow: 0 0 0 1px var(--color-slate-500);
 }
 
 .inputWrapper:focus-within {
   border-color: var(--color-lime);
-  outline: 2px solid var(--color-lime);
-  outline-offset: 1px;
+  box-shadow: 0 0 0 2px var(--color-lime);
+}
+
+.inputWrapper:focus-within:not(.error) {
+  outline: none;
 }
 
 .inputWrapper.error {
@@ -38,7 +44,7 @@
 
 .inputWrapper.error:focus-within {
   border-color: var(--color-red);
-  outline-color: var(--color-red);
+  box-shadow: 0 0 0 2px var(--color-red);
 }
 
 .input {
@@ -85,12 +91,13 @@
 
 .errorMessage {
   color: var(--color-red);
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   margin-top: var(--spacing-xs);
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  line-height: var(--line-height-normal);
 }
 
 .errorMessage::before {

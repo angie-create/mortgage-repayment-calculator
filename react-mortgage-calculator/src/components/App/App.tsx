@@ -1,36 +1,22 @@
-import { useState } from 'react';
-import type { MortgageResults } from '../../types';
+import { useMortgageCalculator } from '../../hooks/useMortgageCalculator';
 import MortgageForm from '../MortgageForm/MortgageForm';
 import ResultsPanel from '../ResultsPanel/ResultsPanel';
 import styles from './App.module.css';
 
 const App: React.FC = () => {
-  const [results, setResults] = useState<MortgageResults | null>(null);
-  const [isCalculating, setIsCalculating] = useState(false);
-
-  const handleCalculation = (calculatedResults: MortgageResults) => {
-    setIsCalculating(false);
-    setResults(calculatedResults);
-  };
-
-  const handleCalculationStart = () => {
-    setIsCalculating(true);
-  };
+  const mortgageCalculator = useMortgageCalculator();
 
   return (
     <div className={styles.app}>
       <main className={styles.container}>
         <section className={styles.formSection} aria-label="Mortgage calculator form">
-          <MortgageForm 
-            onCalculate={handleCalculation}
-            onCalculationStart={handleCalculationStart}
-          />
+          <MortgageForm {...mortgageCalculator} />
         </section>
         
         <section className={styles.resultsSection} aria-label="Calculation results">
           <ResultsPanel 
-            results={results}
-            isLoading={isCalculating}
+            results={mortgageCalculator.results}
+            isLoading={mortgageCalculator.isCalculating}
           />
         </section>
       </main>

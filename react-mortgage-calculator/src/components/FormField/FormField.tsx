@@ -25,6 +25,21 @@ const FormField: React.FC<FormFieldProps> = ({
     onChange(inputValue);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow tab navigation and form submission with Enter
+    if (e.key === 'Enter') {
+      // Prevent form submission from input field, let the form handle it
+      e.preventDefault();
+      const form = e.currentTarget.closest('form');
+      if (form) {
+        const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        if (submitButton && !submitButton.disabled) {
+          submitButton.click();
+        }
+      }
+    }
+  };
+
   const displayValue = type === 'number' && value ? addCommas(value) : value;
   const hasError = Boolean(error);
   
@@ -54,8 +69,10 @@ const FormField: React.FC<FormFieldProps> = ({
           value={displayValue}
           onChange={handleInputChange}
           onBlur={onBlur}
+          onKeyDown={handleKeyDown}
           aria-invalid={hasError}
           aria-describedby={hasError ? errorId : undefined}
+          aria-required={required}
           className={styles.input}
           autoComplete="off"
         />

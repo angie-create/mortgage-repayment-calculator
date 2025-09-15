@@ -16,24 +16,41 @@ export const useFormValidation = (initialData: MortgageFormData) => {
     setFormData(prev => ({ ...prev, [name]: value }));
     
     // Real-time validation for touched fields
-    if (touchedFields.has(name)) {
-      const error = validateField(name, value);
-      setErrors(prev => ({ ...prev, [name]: error }));
-    }
-  }, [touchedFields]);
+    setTouchedFields(prevTouched => {
+      if (prevTouched.has(name)) {
+        const error = validateField(name, value);
+        setErrors(prev => ({ ...prev, [name]: error }));
+      }
+      return prevTouched;
+    });
+  }, []);
 
   const validateFieldOnBlur = useCallback((name: keyof MortgageFormData) => {
     setTouchedFields(prev => new Set(prev).add(name));
-    const error = validateField(name, formData[name]);
-    setErrors(prev => ({ ...prev, [name]: error }));
-  }, [formData]);
+    setFormData(currentFormData => {
+      const error = validateField(name, currentFormData[name]);
+      setErrors(prev => ({ ...prev, [name]: error }));
+      return currentFormData;
+    });
+  }, []);
 
   const validateAllFields = useCallback(() => {
-    const allErrors = validateForm(formData);
-    setErrors(allErrors);
-    setTouchedFields(new Set(['amount', 'term', 'rate', 'type']));
-    return !hasFormErrors(allErrors);
-  }, [formData]);
+    return new Promise<boolean>((resolve) => {
+      setFormData(currentFormData => {
+        console.log('validateAllFields called with formData:', currentFormData); // Debug log
+        const allErrors = validateForm(currentFormData);
+        console.log('validateAllFields: allErrors:', allErrors); // Debug log
+        setErrors(allErrors);
+        setTouchedFields(new Set(['amount', 'term', 'rate', 'type']));
+        const hasErrors = hasFormErrors(allErrors);
+        console.log('validateAllFields: hasErrors:', hasErrors); // Debug log
+        const isValid = !hasErrors;
+        console.log('validateAllFields: isValid:', isValid); // Debug log
+        resolve(isValid);
+        return currentFormData;
+      });
+    });
+  }, []);
 
   const clearForm = useCallback(() => {
     setFormData({

@@ -28,21 +28,28 @@ export const useMortgageCalculator = () => {
   } = useFormValidation(initialFormData);
 
   const calculateRepayments = useCallback(async () => {
+    console.log('Calculate button clicked!'); // Debug log
+    console.log('Current form data at time of calculation:', formData); // Debug log
     setIsCalculating(true);
     
     // Validate all fields first
-    const isFormValid = validateAllFields();
+    const isFormValid = await validateAllFields();
+    console.log('Form validation result:', isFormValid); // Debug log
     
     if (!isFormValid) {
+      console.log('Form validation failed, stopping calculation'); // Debug log
       setIsCalculating(false);
       return;
     }
 
     try {
+      console.log('Starting calculation with data:', formData); // Debug log
+      
       // Simulate a brief loading state for better UX
       await new Promise(resolve => setTimeout(resolve, 300));
       
       const calculatedResults = calculateMortgage(formData);
+      console.log('Calculated results:', calculatedResults); // Debug log
       setResults(calculatedResults);
     } catch (error) {
       console.error('Calculation error:', error);

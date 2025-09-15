@@ -1,5 +1,4 @@
-import { useMortgageCalculator } from '../../hooks/useMortgageCalculator';
-import type { RadioOption } from '../../types';
+import type { RadioOption, MortgageFormData } from '../../types';
 import FormField from '../FormField/FormField';
 import RadioGroup from '../RadioGroup/RadioGroup';
 import Button from '../Button/Button';
@@ -11,31 +10,40 @@ const mortgageTypeOptions: RadioOption[] = [
 ];
 
 interface MortgageFormProps {
-  onCalculate: (results: any) => void;
-  onCalculationStart?: () => void;
+  formData: MortgageFormData;
+  errors: Record<keyof MortgageFormData, string | null>;
+  updateField: (name: keyof MortgageFormData, value: string) => void;
+  validateFieldOnBlur: (name: keyof MortgageFormData) => void;
+  calculateRepayments: () => Promise<void>;
+  clearAll: () => void;
+  isCalculating: boolean;
 }
 
-const MortgageForm: React.FC<MortgageFormProps> = ({ onCalculate, onCalculationStart }) => {
-  const {
-    formData,
-    errors,
-    updateField,
-    validateFieldOnBlur,
-    calculateRepayments,
-    clearAll,
-    isCalculating,
-    results
-  } = useMortgageCalculator();
+const MortgageForm: React.FC<MortgageFormProps> = ({
+  formData,
+  errors,
+  updateField,
+  validateFieldOnBlur,
+  calculateRepayments,
+  clearAll,
+  isCalculating
+}) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('Form submitted!'); // Debug log
     e.preventDefault();
-    onCalculationStart?.();
     await calculateRepayments();
-    
-    // Pass results to parent component if calculation was successful
-    if (!isCalculating && results) {
-      onCalculate(results);
-    }
+  };
+
+  const handleClearAll = () => {
+    clearAll();
+    // Focus the first input after clearing
+    setTimeout(() => {
+      const firstInput = document.querySelector('input[name="amount"]') as HTMLInputElement;
+      if (firstInput) {
+        firstInput.focus();
+      }
+    }, 100);
   };
 
   const CalculateIcon = () => (
@@ -51,7 +59,7 @@ const MortgageForm: React.FC<MortgageFormProps> = ({ onCalculate, onCalculationS
         <button
           type="button"
           className={styles.clearButton}
-          onClick={clearAll}
+          onClick={handleClearAll}
           aria-label="Clear all form fields"
         >
           Clear All

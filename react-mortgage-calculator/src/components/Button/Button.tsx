@@ -19,6 +19,13 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    // Ensure space and enter trigger button clicks
+    if (e.key === ' ') {
+      e.preventDefault();
+      e.currentTarget.click();
+    }
+  };
   const buttonClasses = [
     styles.button,
     styles[variant],
@@ -32,6 +39,7 @@ const Button: React.FC<ButtonProps> = ({
       className={buttonClasses}
       disabled={disabled || loading}
       aria-disabled={disabled || loading}
+      onKeyDown={handleKeyDown}
       {...props}
     >
       {icon && !loading && (

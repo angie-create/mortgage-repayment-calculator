@@ -5,13 +5,13 @@
   gap: var(--spacing-xs);
   padding: var(--spacing-sm) var(--spacing-lg);
   font-family: inherit;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
-  line-height: 1;
+  line-height: var(--line-height-tight);
   border: none;
   border-radius: var(--border-radius-lg);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-base);
   text-decoration: none;
   user-select: none;
   min-height: 3.5rem;
@@ -23,12 +23,14 @@
 }
 
 .primary:hover {
-  background-color: hsl(61, 70%, 45%);
+  background-color: var(--color-lime-light);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .primary:active {
   transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .primary:focus-visible {
@@ -45,6 +47,8 @@
 .secondary:hover {
   background-color: var(--color-slate-100);
   border-color: var(--color-slate-500);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .secondary:focus-visible {

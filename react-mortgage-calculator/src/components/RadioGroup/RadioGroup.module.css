@@ -30,9 +30,11 @@
   transition: all 0.2s ease;
 }
 
-.option:hover {
+.option:hover:not(.error) {
   border-color: var(--color-lime);
   background-color: var(--color-slate-100);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .option.checked {
@@ -83,9 +85,14 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-.option:focus-within .radioCustom {
+.option:focus-visible {
   outline: 2px solid var(--color-lime);
   outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+.option:focus-within .radioCustom {
+  box-shadow: 0 0 0 2px var(--color-lime);
 }
 
 .optionLabel {

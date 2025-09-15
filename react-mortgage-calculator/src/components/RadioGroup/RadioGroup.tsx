@@ -11,10 +11,17 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   const hasError = Boolean(error);
   const errorId = `error-${name}`;
 
+  const handleKeyDown = (e: React.KeyboardEvent, optionValue: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onChange(optionValue);
+    }
+  };
+
   return (
-    <div className={styles.radioGroup} role="radiogroup" aria-labelledby={`label-${name}`}>
+    <div className={styles.radioGroup} role="radiogroup" aria-labelledby={`label-${name}`} aria-required="true">
       <div id={`label-${name}`} className={styles.label}>
-        Mortgage Type
+        Mortgage Type <span className="sr-only">required</span>
       </div>
       
       <div className={styles.options}>
@@ -27,6 +34,10 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
               key={option.value}
               className={`${styles.option} ${isChecked ? styles.checked : ''} ${hasError ? styles.error : ''}`}
               onClick={() => onChange(option.value)}
+              onKeyDown={(e) => handleKeyDown(e, option.value)}
+              tabIndex={0}
+              role="radio"
+              aria-checked={isChecked}
             >
               <input
                 id={optionId}

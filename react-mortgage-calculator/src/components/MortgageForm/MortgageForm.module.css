@@ -1,10 +1,10 @@
 .mortgageForm {
   background-color: var(--color-white);
-  padding: var(--spacing-xl);
-  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2xl);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
+  height: 100%;
 }
 
 .header {
@@ -15,22 +15,27 @@
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
   margin: 0;
+  line-height: var(--line-height-tight);
 }
 
 .clearButton {
   color: var(--color-slate-500);
   text-decoration: underline;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color var(--transition-base);
+  padding: var(--spacing-xs);
+  margin: calc(-1 * var(--spacing-xs));
 }
 
 .clearButton:hover {
   color: var(--color-slate-700);
+  background-color: var(--color-slate-100);
+  border-radius: var(--border-radius-sm);
 }
 
 .clearButton:focus-visible {
@@ -63,8 +68,7 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .mortgageForm {
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xl);
   }
   
   .header {
@@ -75,7 +79,7 @@
   }
   
   .title {
-    font-size: 1.25rem;
+    font-size: var(--font-size-lg);
   }
   
   .termRateGroup {
@@ -85,5 +89,16 @@
   
   .submitSection {
     margin-top: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .mortgageForm {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+  
+  .header {
+    margin-bottom: var(--spacing-sm);
   }
 }
