@@ -1,21 +1,26 @@
 .mortgageForm {
   background-color: var(--color-white);
-  padding: var(--spacing-2xl);
+  width: 504px; /* Exact width for left side */
+  height: 606px; /* Exact height for left side */
+  padding: 40px; /* 40px padding creates 424×526 content area */
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
-  height: 100%;
+  gap: 12px; /* Smaller gap between sections */
+  overflow: hidden;
+  box-sizing: border-box; /* Include padding in dimensions */
+  align-items: flex-start; /* Align content to start */
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm); /* Reduced to sm for less space */
+  width: 424px; /* Force exact width */
 }
 
 .title {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg); /* Reduced from xl to lg */
   font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
   margin: 0;
@@ -47,17 +52,54 @@
 .formFields {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 4px; /* Even smaller gap between form fields */
+  width: 424px !important; /* Force exact width with !important */
+  max-height: 400px; /* Reduce to leave space for header and button */
+  flex: 1; /* Allow to grow but respect max-height */
 }
 
 .termRateGroup {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-md);
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Flexible columns */
+  gap: 16px; /* Smaller gap to give more space to fields */
+  width: 424px; /* Force exact width */
+  /*overflow: hidden;  Clip content that exceeds 424px */
 }
 
+.termRateGroup .formField {
+  position: relative;
+  min-width: 0;
+  max-width: 200px !important; /* Force limit entire FormField including suffix to 200px */
+  max-height: 48px;
+  overflow: hidden; /* Ensure nothing extends beyond the boundary */
+}
+
+.termRateGroup .formField .inputWrapper {
+  width: 200px !important; /* Force the inputWrapper to be exactly 200px */
+  max-width: 200px !important;
+  box-sizing: border-box;
+}
+
+.termRateGroup .formField .input{
+  max-width: calc(200px - 80px) !important; /* Leave space for suffix */
+  box-sizing: border-box;
+  padding-right: 8px;
+  z-index: 1;
+}
+
+.termRateGroup .formField .suffix {
+  max-width: 70px !important; /* Limit suffix width */
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+/* Let FormField take natural size for now to test suffix visibility */
+
 .submitSection {
-  margin-top: var(--spacing-lg);
+  margin-top: 24px; /* Reduced space to fit within container */
+  flex-shrink: 0;
+  width: 424px; /* Force exact width */
 }
 
 .calculateIcon {
@@ -69,26 +111,39 @@
 @media (max-width: 768px) {
   .mortgageForm {
     padding: var(--spacing-xl);
+    width: 100%;
+    height: auto;
+    max-width: none;
   }
-  
+
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-sm);
     margin-bottom: var(--spacing-md);
+    width: 100%;
   }
-  
+
   .title {
     font-size: var(--font-size-lg);
   }
-  
-  .termRateGroup {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-sm);
+
+  .formFields {
+    width: 100% !important;
+    max-height: none;
   }
-  
+
+  .termRateGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 100%;
+    max-width: none;
+  }
+
   .submitSection {
     margin-top: var(--spacing-md);
+    width: 100%;
   }
 }
 

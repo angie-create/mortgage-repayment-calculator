@@ -1,11 +1,12 @@
 .resultsPanel {
-  background-color: var(--color-slate-900);
+  background-color: #133041; /* Exact color specified */
   color: var(--color-white);
   padding: var(--spacing-2xl);
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  border-bottom-right-radius: var(--border-radius-xl);
+  width: 504px; /* Fixed width for desktop */
+  height: 606px; /* Fixed height for desktop */
+  border-radius: 0 0 0 80px; /* Custom border-radius: top-left, top-right, bottom-right, bottom-left */
 }
 
 /* Empty state styles */
@@ -129,11 +130,29 @@
 }
 
 /* Responsive design */
+@media (max-width: 1200px) {
+  .resultsPanel {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .resultsPanel {
+    width: 100%;
+    height: auto;
+    min-height: 450px;
+  }
+}
+
 @media (max-width: 768px) {
   .resultsPanel {
+    width: 100%;
+    height: auto;
+    min-height: auto;
     padding: var(--spacing-xl);
-    border-bottom-right-radius: 0;
-    border-radius: 0;
+    border-radius: 0; /* Remove all border radius on mobile */
   }
   
   .emptyState {

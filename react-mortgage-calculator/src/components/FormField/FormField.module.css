@@ -3,6 +3,49 @@
   flex-direction: column;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-md);
+  max-width: 424px !important; /* Force maximum width */
+  width: 100% !important; /* Force width */
+  box-sizing: border-box !important; /* Include borders in width calculation */
+}
+
+/* Override for term and rate fields in MortgageForm */
+.formField:has([name="term"]),
+.formField:has([name="rate"]) {
+  max-width: 200px !important;
+  width: 200px !important;
+  overflow: hidden !important; /* Force clip anything that goes outside */
+}
+
+.formField:has([name="term"]) .inputWrapper,
+.formField:has([name="rate"]) .inputWrapper {
+  max-width: 200px !important;
+  width: 200px !important;
+}
+
+.formField:has([name="term"]) .input {
+  max-width: 120px !important;
+  width: 120px !important;
+}
+
+.formField:has([name="rate"]) .input {
+  max-width: 149px !important;
+  width: 149px !important;
+}
+
+.formField:has([name="term"]) .suffix {
+  position: relative !important;
+  max-width: 80px !important;
+  width: 80px !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+}
+
+.formField:has([name="rate"]) .suffix {
+  position: relative !important;
+  max-width: 51px !important;
+  width: 51px !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
 }
 
 .label {
@@ -22,6 +65,8 @@
   background-color: var(--color-white);
   transition: all var(--transition-base);
   min-height: 3rem;
+  max-width: 100%; /* Don't exceed parent */
+  box-sizing: border-box; /* Include borders in width */
 }
 
 .inputWrapper:hover:not(.error) {
@@ -50,6 +95,7 @@
 .input {
   flex: 1;
   padding: var(--spacing-sm);
+  padding-right: 20px;
   font-size: 1rem;
   font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
@@ -57,6 +103,12 @@
   border: none;
   outline: none;
 }
+
+.inputWrapper .input {
+  max-width: 100%;
+}
+
+/* Remove the :has() selectors as they may not be well supported */
 
 .input::placeholder {
   color: var(--color-slate-500);
@@ -76,11 +128,24 @@
 .prefix {
   border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
   margin-right: 0;
+  flex-shrink: 0; /* Prevent prefix from shrinking */
+  min-width: auto; /* Allow natural width */
+  border: none; /* Remove any conflicting borders */
+  height: 100%; /* Match the height of the input wrapper */
+  display: flex;
+  align-items: center;
 }
 
 .suffix {
   border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
   margin-left: 0;
+  flex-shrink: 0; /* Prevent suffix from shrinking */
+  min-width: auto; /* Allow natural width */
+  border: none; /* Remove any conflicting borders */
+  height: 100%; /* Match the height of the input wrapper */
+  display: flex;
+  align-items: center;
+  z-index: 2;
 }
 
 .inputWrapper.error .prefix,
@@ -109,9 +174,38 @@
 @media (max-width: 768px) {
   .formField {
     margin-bottom: var(--spacing-sm);
+    max-width: none !important;
+    width: 100% !important;
   }
-  
+
   .input {
     font-size: 0.875rem;
+  }
+
+  /* Remove width constraints for term and rate fields on mobile */
+  .formField:has([name="term"]),
+  .formField:has([name="rate"]) {
+    max-width: none !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .formField:has([name="term"]) .inputWrapper,
+  .formField:has([name="rate"]) .inputWrapper {
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  .formField:has([name="term"]) .input,
+  .formField:has([name="rate"]) .input {
+    max-width: none !important;
+    width: auto !important;
+    flex: 1;
+  }
+
+  .formField:has([name="term"]) .suffix,
+  .formField:has([name="rate"]) .suffix {
+    max-width: none !important;
+    width: auto !important;
   }
 }

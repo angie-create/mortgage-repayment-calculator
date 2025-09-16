@@ -8,33 +8,12 @@ interface ResultsPanelProps {
 }
 
 const EmptyIllustration = () => (
-  <svg 
+  <img 
+    src="/illustration-empty.svg"
+    alt=""
     className={styles.emptyIllustration}
-    viewBox="0 0 192 192" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
-  >
-    <g id="illustration-empty">
-      <circle cx="96" cy="96" r="96" fill="url(#paint0_linear)"/>
-      <g opacity="0.5">
-        <path d="M96 144c26.51 0 48-21.49 48-48s-21.49-48-48-48-48 21.49-48 48 21.49 48 48 48z" fill="url(#paint1_linear)"/>
-      </g>
-      <path d="M96 128c17.673 0 32-14.327 32-32s-14.327-32-32-32-32 14.327-32 32 14.327 32 32 32z" fill="white"/>
-      <path d="M88 80h16v32H88V80z" fill="#9CA3AF"/>
-      <path d="M80 88h32v16H80V88z" fill="#9CA3AF"/>
-      <defs>
-        <linearGradient id="paint0_linear" x1="0" y1="0" x2="192" y2="192" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#E5E7EB"/>
-          <stop offset="1" stopColor="#9CA3AF"/>
-        </linearGradient>
-        <linearGradient id="paint1_linear" x1="48" y1="48" x2="144" y2="144" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F3F4F6"/>
-          <stop offset="1" stopColor="#D1D5DB"/>
-        </linearGradient>
-      </defs>
-    </g>
-  </svg>
+  />
 );
 
 const EmptyState = () => (

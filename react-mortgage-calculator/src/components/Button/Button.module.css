@@ -14,7 +14,7 @@
   transition: all var(--transition-base);
   text-decoration: none;
   user-select: none;
-  min-height: 3.5rem;
+  min-height: 3rem; /* Reduced from 3.5rem to 3rem */
 }
 
 .primary {
