@@ -8,8 +8,8 @@ interface ResultsPanelProps {
 }
 
 const EmptyIllustration = () => (
-  <img 
-    src="/illustration-empty.svg"
+  <img
+    src="illustration-empty.svg"
     alt=""
     className={styles.emptyIllustration}
     aria-hidden="true"
